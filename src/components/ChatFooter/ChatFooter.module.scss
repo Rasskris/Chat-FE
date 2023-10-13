@@ -1,0 +1,13 @@
+.component {
+  padding: 20px;
+  width: 100%;
+
+  form {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+}
