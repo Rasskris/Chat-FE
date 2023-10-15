@@ -8,12 +8,30 @@
 
 .title {
   margin-bottom: 20px;
-  padding: 20px;
+  padding: 10px;
   color: gray;
+  font-size: 14px;
 }
 
 .activeUsers {
   display: flex;
   flex-direction: column;
   color: gray;
+}
+
+@media screen and (max-width: 600px) {
+  .component {
+    padding: 0;
+  }
+
+  .title {
+    margin-bottom: 0;
+    padding: 30px 10px;
+    font-size: 10px;
+  }
+
+  .activeUsers {
+    padding: 10px;
+    font-size: 12px;
+  }
 }
