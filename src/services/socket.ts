@@ -1,6 +1,8 @@
 import { io, Socket as SocketType } from 'socket.io-client';
 
 import store from '../store';
+import checkNotificationStatus from '../utils/checkNotificationStatus';
+import Message from '../types/message';
 
 class Socket {
   socket!: SocketType;
@@ -43,10 +45,12 @@ class Socket {
   }
 
   listenEvents() {
-    this.socket.on('join', (data) => store.setUsers(data));
-    this.socket.on('leave', (data) => store.setUsers(data));
-    this.socket.on('typing', (data) => store.setTypingStatus(data));
-    this.socket.on('message', (data) => store.setMessages([...store.messages, data]));
+    this.socket.on('join', (users) => store.setUsers(users));
+    this.socket.on('leave', (users) => store.setUsers(users));
+    this.socket.on('message', (message: Message) => {
+      store.setMessages([...store.messages, message]);
+      checkNotificationStatus(message);
+    });
   }
 }
 

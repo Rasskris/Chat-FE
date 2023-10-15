@@ -1,36 +1,38 @@
 import Button from '@mui/joy/Button';
 import Textarea from '@mui/joy/Textarea';
+import clsx from 'clsx';
 import React, { useState } from 'react';
 
 import socket from '../../services/socket';
 import classes from './ChatFooter.module.scss';
 
-const ChatFooter: React.FC = () => {
+type Props = {
+  className?: string;
+};
+
+const ChatFooter: React.FC<Props> = ({ className }) => {
   const [message, setMessage] = useState('');
 
   const handleSendMessage = (e: any) => {
     e.preventDefault();
-    if (message.trim() && localStorage.getItem('userName')) {
+    const userName = localStorage.getItem('userName');
+    if (message.trim() && userName) {
       socket.sendMessage(message);
     }
     setMessage('');
   };
 
-  const handleTyping = () => {
-    socket.sendTypingEvent();
-  };
 
   return (
-    <div className={classes.component}>
+    <div className={clsx(classes.component, className)}>
       <form onSubmit={handleSendMessage}>
         <Textarea
-          sx={{ width: "100%" }}
+          sx={{ width: "100%", boxShadow: '0px 0px 8px 0px rgba(34, 60, 80, 0.2)' }}
           minRows={2}
           maxRows={2}
           placeholder="Type in here…"
           value={message}
           onChange={({ target }) => setMessage(target.value)}
-          onKeyDown={handleTyping}
         />
         <Button type="submit" size="lg">SEND</Button>
       </form>

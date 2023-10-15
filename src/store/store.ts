@@ -8,16 +8,12 @@ class Store {
 
   messages: Message[] = [];
 
-  typingStatus: string = '';
-
   constructor() {
     makeObservable(this, {
       users: observable,
       messages: observable,
-      typingStatus: observable,
       setUsers: action.bound,
       setMessages: action.bound,
-      setTypingStatus: action.bound,
     });
   }
 
@@ -30,12 +26,6 @@ class Store {
   setMessages(messages: Message[]) {
     runInAction(() => {
       this.messages = messages;
-    })
-  }
-
-  setTypingStatus(typingStatus: string) {
-    runInAction(() => {
-      this.typingStatus = typingStatus;
     })
   }
 }

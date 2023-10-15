@@ -13,12 +13,12 @@ const ChatBar: React.FC<Props> = observer(({ className }) => {
   const { users } = store;
 
   return (
-    <aside className={clsx(classes.component, className)}>
-      <h4>ACTIVE USERS</h4>
+    <div className={clsx(classes.component, className)}>
+      <h4 className={classes.title}>ACTIVE USERS</h4>
       <div className={classes.activeUsers}>
         {users.map((user) => <p key={user.id}>{user.name}</p>)}
       </div>
-    </aside>
+    </div>
   );
 });
 

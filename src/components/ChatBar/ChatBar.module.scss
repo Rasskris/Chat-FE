@@ -1,4 +1,19 @@
+.component {
+  min-width: 100px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-right: 1px solid rgba(34, 60, 80, 0.2);
+  box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2);
+}
+
+.title {
+  margin-bottom: 20px;
+  padding: 20px;
+  color: gray;
+}
+
 .activeUsers {
   display: flex;
   flex-direction: column;
+  color: gray;
 }

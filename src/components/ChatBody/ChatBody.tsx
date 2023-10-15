@@ -7,8 +7,12 @@ import socket from '../../services/socket';
 import store from '../../store';
 import classes from './ChatBody.module.scss';
 
-const ChatBody: React.FC = observer(() => {
-  const { messages, typingStatus } = store;
+type Props = {
+  className?: string;
+};
+
+const ChatBody: React.FC<Props> = observer(({ className }) => {
+  const { messages } = store;
   const navigate = useNavigate();
   const lastMessageRef = useRef<HTMLDivElement>(null);
 
@@ -23,11 +27,8 @@ const ChatBody: React.FC = observer(() => {
   };
 
   return (
-    <div>
+    <div className={className}>
       <header className={classes.header}>
-        <div className={classes.typingStatus}>
-          <p>{typingStatus}</p>
-        </div>
         <Button size="md" variant="outlined" color="danger" onClick={handleLeaveChat}>
           LEAVE CHAT
         </Button>
@@ -37,18 +38,18 @@ const ChatBody: React.FC = observer(() => {
         {messages.map((message) =>
           message.name === localStorage.getItem('userName')
             ? (
-              <div className={classes.messageChats} key={message.id}>
+              <div key={message.id}>
                 <p className={classes.senderName}>You</p>
                 <div className={classes.messageSender}>
-                  <p>{message.text}</p>
+                  <p className={classes.message}>{message.text}</p>
                 </div>
               </div>
             )
             : (
-              <div className={classes.messageChats} key={message.id}>
-                <p>{message.name}</p>
+              <div key={message.id}>
+                <p className={classes.recipientName}>{message.name}</p>
                 <div className={classes.messageRecipient}>
-                  <p>{message.text}</p>
+                  <p className={classes.message}>{message.text}</p>
                 </div>
               </div>
             )
