@@ -1,10 +1,10 @@
-import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
+import React from 'react';
 
 import socket from './services/socket.ts';
 import App from './components/App/App.tsx';
 import './index.css';
-import { BrowserRouter } from 'react-router-dom';
 
 socket.init();
 

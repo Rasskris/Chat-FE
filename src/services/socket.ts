@@ -1,7 +1,8 @@
 import { io, Socket as SocketType } from 'socket.io-client';
 
 import store from '../store';
-import checkNotificationStatus from '../utils/checkNotificationStatus';
+import isEnabledNotifications from '../utils/isEnabledNotifications';
+import sendNotification from '../utils/sendNotification';
 import Message from '../types/message';
 
 class Socket {
@@ -46,12 +47,16 @@ class Socket {
 
   listenEvents() {
     this.socket.on('join', (users) => store.setUsers(users));
+
     this.socket.on('leave', (users) => store.setUsers(users));
+
     this.socket.on('message', (message: Message) => {
       store.setMessages([...store.messages, message]);
-      checkNotificationStatus(message);
+      if (isEnabledNotifications(message)) {
+        sendNotification(message);
+      }
     });
   }
 }
 
-export default new Socket('http://localhost:4000');
+export default new Socket(import.meta.env.VITE_API_URL);
