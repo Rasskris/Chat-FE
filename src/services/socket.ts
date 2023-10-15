@@ -41,10 +41,6 @@ class Socket {
     });
   }
 
-  sendTypingEvent() {
-    this.socket.emit('typing', `${localStorage.getItem('userName')} is typing`);
-  }
-
   listenEvents() {
     this.socket.on('join', (users) => store.setUsers(users));
 
