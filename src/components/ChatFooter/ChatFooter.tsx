@@ -1,4 +1,3 @@
-import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Textarea from '@mui/joy/Textarea';
 import React, { useState } from 'react';
@@ -17,6 +16,10 @@ const ChatFooter: React.FC = () => {
     setMessage('');
   };
 
+  const handleTyping = () => {
+    socket.sendTypingEvent();
+  };
+
   return (
     <div className={classes.component}>
       <form onSubmit={handleSendMessage}>
@@ -25,9 +28,11 @@ const ChatFooter: React.FC = () => {
           minRows={2}
           maxRows={2}
           placeholder="Type in here…"
-          onChange={(e) => setMessage(e.target.value)}
+          value={message}
+          onChange={({ target }) => setMessage(target.value)}
+          onKeyDown={handleTyping}
         />
-        <Button size="lg">SEND</Button>
+        <Button type="submit" size="lg">SEND</Button>
       </form>
     </div>
   );

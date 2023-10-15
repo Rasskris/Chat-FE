@@ -1,33 +1,33 @@
 import Button from '@mui/joy/Button';
 import { useNavigate } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
+import React, { useEffect, useRef } from 'react';
 
 import socket from '../../services/socket';
+import store from '../../store';
 import classes from './ChatBody.module.scss';
 
-type Message = {
-  id: string;
-  name: string;
-  text: string;
-};
-
-const ChatBody: React.FC = () => {
+const ChatBody: React.FC = observer(() => {
+  const { messages, typingStatus } = store;
   const navigate = useNavigate();
-  const [messages, setMessages] = useState<Message[]>([]);
+  const lastMessageRef = useRef<HTMLDivElement>(null);
 
-  // useEffect(() => {
-  //   socket.on('messageResponse', (data) => setMessages([...messages, data]));
-  // }, [socket, messages]);
+  useEffect(() => {
+    lastMessageRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   const handleLeaveChat = () => {
     localStorage.removeItem('userName');
+    socket.leaveUser();
     navigate('/');
-    window.location.reload();
   };
 
   return (
     <div>
       <header className={classes.header}>
+        <div className={classes.typingStatus}>
+          <p>{typingStatus}</p>
+        </div>
         <Button size="md" variant="outlined" color="danger" onClick={handleLeaveChat}>
           LEAVE CHAT
         </Button>
@@ -53,9 +53,10 @@ const ChatBody: React.FC = () => {
               </div>
             )
         )}
+        <div ref={lastMessageRef} />
       </div>
     </div>
   );
-};
+});
 
 export default ChatBody;

@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Button from '@mui/joy/Button';
+import React, { useState } from 'react';
 
+import socket from '../../services/socket';
 import classes from './Home.module.scss';
 
 const Home: React.FC = () => {
@@ -10,8 +12,7 @@ const Home: React.FC = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     localStorage.setItem('userName', userName);
-    //sends the username and socket ID to the Node.js server
-    // socket.emit('newUser', { userName, socketID: socket.id });
+    socket.joinUser(userName);
     navigate('/chat');
   };
 
@@ -28,7 +29,7 @@ const Home: React.FC = () => {
         value={userName}
         onChange={(e) => setUserName(e.target.value)}
       />
-      <button className={classes.signInButton}>SIGN IN</button>
+      <Button type="submit" size="lg">SIGN IN</Button>
     </form>
   );
 };

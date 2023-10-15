@@ -1,5 +1,7 @@
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
 
+import socket from '../../services/socket';
 import ChatBar from '../ChatBar';
 import ChatBody from '../ChatBody';
 import ChatFooter from '../ChatFooter';
