@@ -1,5 +1,5 @@
 import Button from '@mui/joy/Button';
-import Textarea from '@mui/joy/Textarea';
+import Input from '@mui/joy/Input';
 import clsx from 'clsx';
 import React, { useState } from 'react';
 
@@ -26,10 +26,9 @@ const ChatFooter: React.FC<Props> = ({ className }) => {
   return (
     <div className={clsx(classes.component, className)}>
       <form onSubmit={handleSendMessage}>
-        <Textarea
+        <Input
+          size="lg"
           sx={{ width: "100%", boxShadow: '0px 0px 8px 0px rgba(34, 60, 80, 0.2)' }}
-          minRows={2}
-          maxRows={2}
           placeholder="Type in here…"
           value={message}
           onChange={({ target }) => setMessage(target.value)}

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/joy/Button';
-import Textarea from '@mui/joy/Textarea';
+import Input from '@mui/joy/Input';
 import React, { useState } from 'react';
 
 import socket from '../../services/socket';
@@ -21,9 +21,10 @@ const Home: React.FC = () => {
     <form className={classes.component} onSubmit={handleSubmit}>
       <h2 className={classes.header}>Sign in to Chat</h2>
       <label htmlFor="username">Name</label>
-      <Textarea
+      <Input
         id="username"
         name="username"
+        size="lg"
         sx={{ width: "50%", boxShadow: '0px 0px 8px 0px rgba(34, 60, 80, 0.2)' }}
         placeholder="Kristina"
         value={userName}
