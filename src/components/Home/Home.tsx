@@ -30,7 +30,13 @@ const Home: React.FC = () => {
         value={userName}
         onChange={(e) => setUserName(e.target.value)}
       />
-      <Button type="submit" size="lg">SIGN IN</Button>
+      <Button
+        type="submit"
+        size="lg"
+        disabled={userName.length === 0}
+      >
+        SIGN IN
+      </Button>
     </form>
   );
 };
